@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="css/shared.css" />
+
+
+    <title>Easy Tip Calculator</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row center">
+            <div class="col l12 s12 m7">
+                <!-- <h2 class="header">Easy Tip Calc</h2> -->
+                <img src="images/easyTipCalcLogo.png" alt="logo" />
+                <div class="card horizontal">
+                    <div class="card-image">
+                        <!-- <img src="images/easyTipCalcLogo.png" alt="logo" /> -->
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p>
+                                <label for="billTotalSum">Сума сметка(лв.):</label>
+                                <input min="1" class="input-field col s12" type="number" name="billTotalSum" />
+                            </p>
+                            <p>
+                                <label for="serviceLevel">Доволни ли сте от обслужването?</label>
+                            </p>
+                            <div class="input-field col s12">
+                                <select name="serviceLevel">
+                                    <!-- <option value="" disabled selected>Изберете</option> -->
+                                    <option value="30">30% - Страхотно</option>
+                                    <option value="20">20% - Добро</option>
+                                    <option value="15" selected>15% - Нормално</option>
+                                    <option value="10">10% - Лошо</option>
+                                    <option value="5">5% - Ужасно</option>
+                                </select>
+                            </div>
+                            <p>
+                                <label for="peopleCount">Колко човека ще си поделят сметката:</label>
+                                <input min="1" class="input-field col s12" type="number" name="peopleCount" />
+                            </p>
+                            <div>
+                                <p id="result"></p>
+                            </div>
+
+                        </div>
+                        <div class="card-action">
+                            <a name="calculate" href="#">Пресметни</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems);
+        });
+    </script>
+    <script src="scripts/easyTipCalc.js"></script>
+    <script>
+        let calcBtn = document.getElementsByName('calculate')[0];
+        calcBtn.addEventListener('click', function () {
+            let billTotalSum = document.getElementsByName('billTotalSum')[0].value;
+            let serviceLevel = document.getElementsByName('serviceLevel')[0].value;
+            let peopleCount = document.getElementsByName('peopleCount')[0].value;
+            let resultBox = document.getElementById('result');
+
+            let easyTipCalc = $etc({
+                totalBillSum: billTotalSum,
+                levelOfServicePercent: serviceLevel,
+                peopleCount: peopleCount
+            });
+
+            resultBox.textContent = easyTipCalc.calc() + ' лв.';
+
+        });
+
+    </script>
+</body>
+
+</html>
