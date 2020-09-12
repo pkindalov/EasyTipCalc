@@ -70,10 +70,35 @@
     <script>
         let calcBtn = document.getElementsByName('calculate')[0];
         calcBtn.addEventListener('click', function () {
-            let billTotalSum = document.getElementsByName('billTotalSum')[0].value;
+            let billField =  document.getElementsByName('billTotalSum')[0];
+            let billTotalSum = billField.value;
             let serviceLevel = document.getElementsByName('serviceLevel')[0].value;
-            let peopleCount = document.getElementsByName('peopleCount')[0].value;
+            let peopleCountField = document.getElementsByName('peopleCount')[0];
+            let peopleCount = peopleCountField.value;
             let resultBox = document.getElementById('result');
+
+           
+            if(!billTotalSum || parseInt(billTotalSum) <= 0){
+                M.toast({html: 'Невалидна стойност на полето за общата сметка'});
+                resultBox.innerText = '';
+                // billField.style.border = '1px solid red';
+                billField.classList.add("wrongInput"); 
+                return;
+            }
+
+            // billField.style.border = 'none';
+            billField.classList.remove("wrongInput");
+
+            if(!peopleCount || parseInt(peopleCount <= 0)){
+                M.toast({html: 'Невалидна стойност на полето за броя хора, които ще споделят сметката'});
+                resultBox.innerText = '';
+                // peopleCountField.style.border = '1px solid red';
+                peopleCountField.classList.add("wrongInput");
+                return;
+            }
+
+            // peopleCountField.style.border = 'none';
+            peopleCountField.classList.remove("wrongInput");
 
             let easyTipCalc = $etc({
                 totalBillSum: billTotalSum,

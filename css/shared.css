@@ -4,3 +4,7 @@
     height: 100px;
     margin: 15px 0 15px 0;
 }
+
+.wrongInput{
+    border: 1px solid red !important;
+}
